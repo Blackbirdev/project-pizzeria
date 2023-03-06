@@ -58,7 +58,7 @@
       thisProduct.id = id;
       thisProduct.data = data;
       thisProduct.renderInMenu();
-      thisProduct.initAccordion()
+      thisProduct.initAccordion();
       console.log('new Product:', thisProduct);
     }
     renderInMenu() {
@@ -102,7 +102,7 @@
       console.log('thisApp.data:', thisApp.data);
       for (let productData in thisApp.data.products) {
         new Product(productData, thisApp.data.products[productData]);
-      };
+      }
     },
 
     initData: function () {
