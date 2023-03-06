@@ -60,18 +60,20 @@
       thisProduct.renderInMenu();
       thisProduct.getElements();
       thisProduct.initAccordion();
+      thisProduct.initOrderForm();
+      thisProduct.processOrder();
       console.log('new Product:', thisProduct);
     }
     renderInMenu() {
       const thisProduct = this;
 
-      /* generate HTML based on template  */
+      /* [DONE] generate HTML based on template  */
       const generatedHTML = templates.menuProduct(thisProduct.data);
-      /*  create element using utils.createElementFromHtml */
+      /* [DONE]  create element using utils.createElementFromHtml */
       thisProduct.element = utils.createDOMFromHTML(generatedHTML);
-      /* find mneu container  */
+      /* [DONE] find mneu container  */
       const menuContainer = document.querySelector(select.containerOf.menu);
-      /* add element to menu  */
+      /* [DONE] add element to menu  */
       menuContainer.appendChild(thisProduct.element);
     }
     getElements() {
@@ -86,9 +88,9 @@
     initAccordion() {
       const thisProduct = this;
       /* [DONE] find the clickable trigger (the element that should react to clicking) */
-      const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+      // const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
       /* [DONE] START: add event listener to clickable trigger on event click */
-      clickableTrigger.addEventListener('click', function (event) {
+      thisProduct.accordionTrigger.addEventListener('click', function (event) {
         /* [DONE] prevent default action for event */
         event.preventDefault();
         /* [DONE] find active product (product that has active class) */
@@ -102,7 +104,28 @@
         /* [DONE] toggle active class on thisProduct.element */
         thisProduct.element.classList.toggle('active');
       });
+    }
+    initOrderForm() {
+      const thisProduct = this;
+      console.log('initOrderForm:', thisProduct);
 
+      thisProduct.form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+      for (let input of thisProduct.formInputs) {
+        input.addEventListener('change', function () {
+          thisProduct.processOrder();
+        });
+      }
+      thisProduct.cartButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+    }
+    processOrder() {
+      const thisProduct = this;
+      console.log('processOrder:', thisProduct);
     }
   }
 
