@@ -195,12 +195,10 @@
     constructor(element) {
       const thisWidget = this;
       thisWidget.getElements(element);
+      thisWidget.setValue(settings.amountWidget.defaultValue);
       thisWidget.initActions();
-
-      thisWidget.setValue(thisWidget.input.value);
-
-      console.log('AmountWidget:', thisWidget);
-      console.log('constructor argument:', element);
+      // console.log('AmountWidget:', thisWidget);
+      // console.log('constructor argument:', element);
     }
     getElements(element) {
       const thisWidget = this;
@@ -211,7 +209,6 @@
       thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
 
     }
-
     setValue(value) {
       const thisWidget = this;
 
@@ -244,8 +241,6 @@
       thisWidget.element.dispatchEvent(event);
     }
   }
-
-
   const app = {
     initMenu: function () {
       const thisApp = this;
