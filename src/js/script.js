@@ -168,7 +168,7 @@
     processOrder() {
       const thisProduct = this;
 
-      // covert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
+      // convert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
       const formData = utils.serializeFormToObject(thisProduct.form);
       // console.log('formData', formData);
 
@@ -232,7 +232,7 @@
     addToCart() {
       const thisProduct = this;
 
-      app.cart.add(thisProduct);
+      app.cart.add(thisProduct.prepareCartProduct());
     }
     prepareCartProduct() {
       const thisProduct = this;
@@ -242,7 +242,34 @@
       productSummary.amount = thisProduct.amountWidget.value;
       productSummary.priceSingle = thisProduct.priceSingle;
       productSummary.price = thisProduct.price;
-      
+      productSummary.params = thisProduct.prepareCartProductParams();
+
+      return productSummary;
+    }
+    prepareCartProductParams() {
+      const thisProduct = this;
+      const formData = utils.serializeFormToObject(thisProduct.form);
+      const params = {};
+
+      // for every category (param)
+      for (let paramId in thisProduct.data.params) {
+        const param = thisProduct.data.params[paramId];
+        // create category param in params const eg. params = { ingredients: { name: 'Ingredients', options: {}}}
+        params[paramId] = {
+          label: param.label,
+          options: {}
+        };
+        // for every option in this category
+        for (let optionId in param.options) {
+          const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
+
+          if (optionSelected) {
+            // option is selected
+            params[paramId].options[optionId] = param.options[optionId].label;
+          }
+        }
+      }
+      return params;
     }
   }
   class AmountWidget {
