@@ -214,6 +214,7 @@
           }
         }
       }
+      thisProduct.priceSingle = price;
       /* multiply price by amount */
       price *= thisProduct.amountWidget.value;
       // update calculated price in the HTML
@@ -237,8 +238,11 @@
       const thisProduct = this;
       const productSummary = {};
       productSummary.id = thisProduct.id;
-      productSummary.name = thisProduct.name;
-      productSummary.amount = thisProduct.amount;
+      productSummary.name = thisProduct.data.name;
+      productSummary.amount = thisProduct.amountWidget.value;
+      productSummary.priceSingle = thisProduct.priceSingle;
+      productSummary.price = thisProduct.price;
+      
     }
   }
   class AmountWidget {
