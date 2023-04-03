@@ -66,7 +66,7 @@ class Cart {
     for (let product of thisCart.products) {
       thisCart.subtotalPrice += product.price;
       thisCart.totalNumber += product.amount;
-      console.log('thisCart.products:', product.price);
+      console.log('thisCart.product:', product.price);
     }
     if (thisCart.totalNumber != 0) {
       thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
@@ -74,7 +74,7 @@ class Cart {
       thisCart.totalPrice = 0;
       thisCart.deliveryFee = 0;
     }
-    
+
     thisCart.dom.totalNumber.innerHTML = thisCart.totalNumber;
     thisCart.dom.subtotalPrice.innerHTML = thisCart.subtotalPrice;
     thisCart.dom.deliveryFee.innerHTML = thisCart.deliveryFee;

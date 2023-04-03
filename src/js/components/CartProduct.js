@@ -18,6 +18,19 @@ class CartProduct {
 
     //console.log('thisCartProduct:', thisCartProduct);
   }
+  getData() {
+    const thisCartProduct = this;
+
+    const productData = {
+      id: thisCartProduct.id,
+      amount: thisCartProduct.amount,
+      price: thisCartProduct.price,
+      priceSingle: thisCartProduct.priceSingle,
+      name: thisCartProduct.name,
+      params: thisCartProduct.params
+    };
+    return productData;
+  }
   getElements(element) {
     const thisCartProduct = this;
 
@@ -61,19 +74,6 @@ class CartProduct {
       event.preventDefault();
       thisCartProduct.remove();
     });
-  }
-  getData() {
-    const thisCartProduct = this;
-
-    const productData = {
-      id: thisCartProduct.id,
-      amount: thisCartProduct.amount,
-      price: thisCartProduct.price,
-      priceSingle: thisCartProduct.priceSingle,
-      name: thisCartProduct.name,
-      params: thisCartProduct.params
-    };
-    return productData;
   }
 }
 

@@ -29,24 +29,24 @@ export const select = {
       input: 'input.amount', // CODE CHANGED
       linkDecrease: 'a[href="#less"]',
       linkIncrease: 'a[href="#more"]',
-      datePicker: {
-        wrapper: '.date-picker',
-        input: `input[name="date"]`,
-      },
-      hourPicker: {
-        wrapper: '.hour-picker',
-        input: 'input[type="range"]',
-        output: '.output',
-      },
     },
-    booking: {
-      peopleAmount: '.people-amount',
-      hoursAmount: '.hours-amount',
-      tables: '.floor-plan .table',
+    datePicker: {
+      wrapper: '.date-picker',
+      input: `input[name="date"]`,
     },
-    nav: {
-      links: '.main-nav a',
+    hourPicker: {
+      wrapper: '.hour-picker',
+      input: 'input[type="range"]',
+      output: '.output',
     },
+  },
+  booking: {
+    peopleAmount: '.people-amount',
+    hoursAmount: '.hours-amount',
+    tables: '.floor-plan .table',
+  },
+  nav: {
+    links: '.main-nav a',
   },
   // CODE ADDED START
   cart: {
