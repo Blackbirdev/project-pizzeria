@@ -4,7 +4,6 @@ class BaseWidget {
 
     thisWidget.dom = {};
     thisWidget.dom.wrapper = wrapperElement;
-
     thisWidget.correctValue = initialValue;
   }
   get value() {
@@ -14,14 +13,12 @@ class BaseWidget {
   }
   set value(value) {
     const thisWidget = this;
-
     const newValue = thisWidget.parseValue(value);
 
     if (thisWidget.correctValue !== newValue && thisWidget.isValid(newValue)) {
       thisWidget.correctValue = newValue;
       thisWidget.announce();
     }
-
     thisWidget.renderValue();
   }
   setValue(value) {
