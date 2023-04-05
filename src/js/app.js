@@ -80,7 +80,6 @@ const app = {
         /* execute initMenu method */
         thisApp.initMenu();
       });
-    console.log('thisApp.data', JSON.stringify(thisApp.data));
   },
   initCart: function () {
     const thisApp = this;
@@ -102,15 +101,17 @@ const app = {
   },
   init: function () {
     const thisApp = this;
+
+    thisApp.initPages();
+    thisApp.initData();
+    thisApp.initCart();
+    thisApp.initBooking();
+
     // //console.log('*** App starting ***');
     // //console.log('thisApp:', thisApp);
     // //console.log('classNames:', classNames);
     // //console.log('settings:', settings);
     // //console.log('templates:', templates);
-    thisApp.initPages();
-    thisApp.initData();
-    thisApp.initCart();
-    thisApp.initBooking();
   },
 };
 app.init();
