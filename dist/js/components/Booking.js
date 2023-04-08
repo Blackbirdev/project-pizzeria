@@ -87,11 +87,12 @@ class Booking {
     for (let item of eventsRepeat) {
       if (item.repeat == 'daily') {
         for (let loopDate = minDate; loopDate <= maxDate; loopDate = utils.addDays(loopDate, 1)) {
-          thisBooking.makeBooked(utils.dateToStr(loopDate), item.date, item.hour, item.duration, item.table);
+          thisBooking.makeBooked(utils.dateToStr(loopDate), item.hour, item.duration, item.table);
         }
       }
     }
     thisBooking.updateDOM();
+    console.log('Booked', thisBooking.booked);
   }
   makeBooked(date, hour, duration, table) {
     const thisBooking = this;
@@ -142,18 +143,18 @@ class Booking {
       }
     }
   }
-  render(element) {
+  render(wrapper) {
     const thisBooking = this;
     const generatedHTML = templates.bookingWidget();
 
     thisBooking.dom = {};
-    thisBooking.dom.wrapper = element;
+    thisBooking.dom.wrapper = wrapper;
     thisBooking.dom.wrapper.innerHTML = generatedHTML;
-    thisBooking.dom.peopleAmount = element.querySelector(select.booking.peopleAmount);
-    thisBooking.dom.hoursAmount = element.querySelector(select.booking.hoursAmount);
-    thisBooking.dom.datePicker = element.querySelector(select.widgets.datePicker.wrapper);
-    thisBooking.dom.hourPicker = element.querySelector(select.widgets.hourPicker.wrapper);
-    thisBooking.dom.tables = element.querySelectorAll(select.widgets.tables);
+    thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
+    thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
+    thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
+    thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
+    thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
   }
   initWidgets() {
     const thisBooking = this;
