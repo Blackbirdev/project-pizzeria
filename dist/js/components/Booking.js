@@ -7,6 +7,7 @@ import HourPicker from './HourPicker.js';
 class Booking {
   constructor(element) {
     const thisBooking = this;
+
     thisBooking.render(element);
     thisBooking.initWidgets();
     thisBooking.getData();
@@ -142,6 +143,12 @@ class Booking {
         table.classList.remove(classNames.booking.tableBooked);
       }
     }
+
+    for (let table of thisBooking.dom.tables) {
+      if (table.classList.contains('selected')) {
+        table.classList.remove('selected');
+      }
+    }
   }
   render(wrapper) {
     const thisBooking = this;
@@ -155,9 +162,12 @@ class Booking {
     thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
+    thisBooking.dom.floor = thisBooking.dom.wrapper.querySelector(select.booking.floor);
   }
   initWidgets() {
     const thisBooking = this;
+
+    const selectedTable = [];
 
     thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount);
     thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
@@ -166,6 +176,25 @@ class Booking {
 
     thisBooking.dom.wrapper.addEventListener('updated', function () {
       thisBooking.updateDOM();
+    });
+    thisBooking.dom.floor.addEventListener('click', function (event) {
+      event.preventDefault();
+      const table = event.target;
+
+      if (table.classList.contains(classNames.booking.tableBooked) && table.classList.contains(classNames.booking.table)) {
+        return window.alert('This table is already booked');
+      }
+      if (table.classList.contains(classNames.booking.tableSelected)) {
+        table.classList.remove(classNames.booking.tableSelected);
+        thisBooking.updateDOM();
+      }
+      if (!table.classList.contains(classNames.booking.tableSelected)) {
+        thisBooking.updateDOM();
+        const tableId = table.getAttribute(settings.booking.tableIdAttribute);
+        table.classList.add(classNames.booking.tableSelected);
+        selectedTable.pop();
+        selectedTable.push(tableId);
+      }
     });
   }
 }
