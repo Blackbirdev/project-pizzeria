@@ -163,11 +163,19 @@ class Booking {
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
     thisBooking.dom.floor = thisBooking.dom.wrapper.querySelector(select.booking.floor);
+    thisBooking.dom.duration = thisBooking.dom.wrapper.querySelector(select.booking.duration);
+    thisBooking.dom.ppl = thisBooking.dom.wrapper.querySelector(select.booking.ppl);
+    thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector(select.booking.phone);
+    thisBooking.dom.address = thisBooking.dom.wrapper.querySelector(select.booking.address);
+    thisBooking.dom.starters = thisBooking.dom.wrapper.querySelectorAll(select.booking.starters);
+    thisBooking.dom.bookTableBtn = thisBooking.dom.wrapper.querySelector(select.containerOf.bookTableBtn);
   }
   initWidgets() {
     const thisBooking = this;
 
     const selectedTable = [];
+    const validatePhoneNumber = /^\d{9}$/;
+    const validateAddress = 10;
 
     thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount);
     thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
@@ -192,10 +200,71 @@ class Booking {
         thisBooking.updateDOM();
         const tableId = table.getAttribute(settings.booking.tableIdAttribute);
         table.classList.add(classNames.booking.tableSelected);
+        thisBooking.selectedTable = tableId;
         selectedTable.pop();
         selectedTable.push(tableId);
       }
     });
+    thisBooking.dom.bookTableBtn.addEventListener('click', function (event) {
+      event.preventDefault();
+
+      if (!selectedTable[0]) {
+        return window.alert('Please choose a table');
+      }
+
+      if (!thisBooking.dom.phone.value.match(validatePhoneNumber)) {
+        return window.alert('Please enter a valid phone number');
+      }
+
+      if(thisBooking.dom.address.value.length < validateAddress){
+        return window.alert('Please enter a valid address');
+      }
+      thisBooking.sendBooking();
+    });
+  }
+  sendBooking() {
+    const thisBooking = this;
+
+    const url = settings.db.url + '/' + settings.db.booking;
+
+    const payload = {
+      date: thisBooking.date,
+      hour: thisBooking.hourPicker.value,
+      table: parseInt(thisBooking.selectedTable),
+      duration: parseInt(thisBooking.dom.duration.value),
+      ppl: parseInt(thisBooking.dom.ppl.value),
+      phone: thisBooking.dom.phone.value,
+      address: thisBooking.dom.address.value,
+      starters: [],
+    };
+
+    for (let starter of thisBooking.dom.starters) {
+      if (starter.checked) {
+        payload.starters.push(starter.value);
+      }
+    }
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    };
+
+    fetch(url, options)
+      .then(response => response.json())
+      .then(parsedResponse => {
+        alert('Thank you for booking a table!');
+        thisBooking.makeBooked(
+          parsedResponse.date,
+          parsedResponse.hour,
+          parsedResponse.duration,
+          parsedResponse.table
+        );
+        thisBooking.updateDOM();
+        console.log('parsedResponseReservation', parsedResponse);
+      });
   }
 }
 
