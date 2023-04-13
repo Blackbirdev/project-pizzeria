@@ -3,6 +3,7 @@ export const select = {
     menuProduct: '#template-menu-product',
     cartProduct: '#template-cart-product', // CODE ADDED
     bookingWidget: '#template-booking-widget',
+    homeWidget: '#template-home-widget',
 
   },
   containerOf: {
@@ -142,4 +143,5 @@ export const templates = {
   cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
   // CODE ADDED END
   bookingWidget: Handlebars.compile(document.querySelector(select.templateOf.bookingWidget).innerHTML),
+  homeWidget: Handlebars.compile(document.querySelector(select.templateOf.homeWidget).innerHTML),
 };
