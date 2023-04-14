@@ -12,6 +12,10 @@ export const select = {
     pages: '#pages',
     booking: '.booking-wrapper',
     bookTableBtn: '.btn-secondary',
+    home: '.home-wrapper',
+    carousel: '.main-carousel',
+    orderLink: '.order-link',
+    bookingLink: '.booking-link',
   },
   all: {
     menuProducts: '#product-list > .product',
@@ -41,6 +45,9 @@ export const select = {
       input: 'input[type="range"]',
       output: '.output',
     },
+  },
+  home: {
+    homeHeader: '.home-header',
   },
   booking: {
     peopleAmount: '.people-amount',

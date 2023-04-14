@@ -5,10 +5,10 @@ import DatePicker from './DatePicker.js';
 import HourPicker from './HourPicker.js';
 
 class Booking {
-  constructor(element) {
+  constructor(wrapper) {
     const thisBooking = this;
 
-    thisBooking.render(element);
+    thisBooking.render(wrapper);
     thisBooking.initWidgets();
     thisBooking.getData();
   }
